@@ -20,12 +20,16 @@ namespace WebApplication2.Pages
 
         public async Task OnGetAsync()
         {
-            PagesViewModel = await _context.CmsPages.Select(p => new PagesViewModel
+            var data = await _context.CmsPages.ToListAsync();
+            if (data.Count > 1)
             {
-                Id = p.Id,
-                Name = p.Name,
-                Body = p.Body,
-            }).FirstOrDefaultAsync();
+                PagesViewModel = await _context.CmsPages.Select(p => new PagesViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Body = p.Body,
+                }).FirstOrDefaultAsync();
+            }
         }
     }
 }

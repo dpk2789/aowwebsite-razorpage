@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "Home page";
 }
+@{
+    if (Model.PagesViewModel != null)
+    {
+        @Html.Raw(Model.PagesViewModel.Body)
+    }
+}
 
-@Html.Raw(Model.PagesViewModel.Body)
- 
 <textarea>Next, use our Get Started docs to setup Tiny!</textarea>
