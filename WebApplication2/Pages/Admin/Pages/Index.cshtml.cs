@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Infrastructure;
 using WebApplication2.ViewModels;
 
-namespace WebApplication2.Pages
+namespace WebApplication2.Pages.Admin.Pages
 {
     public class IndexModel : PageModel
     {
@@ -16,7 +16,7 @@ namespace WebApplication2.Pages
         }
 
         [BindProperty]
-        public PagesViewModel? PagesViewModel { get; set; }
+        public IList<PagesViewModel>? PagesViewModel { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -28,7 +28,7 @@ namespace WebApplication2.Pages
                     Id = p.Id,
                     Name = p.Name,
                     Body = p.Body,
-                }).FirstOrDefaultAsync();
+                }).ToListAsync();
             }
         }
     }

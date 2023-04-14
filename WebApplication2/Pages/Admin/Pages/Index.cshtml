@@ -1,0 +1,43 @@
+﻿@page
+@model WebApplication2.Pages.Admin.Pages.IndexModel
+@{
+}
+
+<h1>Pages</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Name</label>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.PagesViewModel != null)
+            {
+                foreach (var item in Model.PagesViewModel)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+
+                        <td>
+                            <a asp-page="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="Admin/Pages/Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="Admin/Pages/Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+
+    </tbody>
+</table>
