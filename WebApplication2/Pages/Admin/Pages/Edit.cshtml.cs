@@ -6,6 +6,7 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Pages.Admin.Pages
 {
+    [IgnoreAntiforgeryToken(Order = 1001)]
     public class EditModel : PageModel
     {
         private readonly CmsContext _context;
@@ -14,8 +15,9 @@ namespace WebApplication2.Pages.Admin.Pages
         {
             _context = context;
         }
-
-       
+        [BindProperty]
+        public string HtmlContent { get; set; }
+        [BindProperty]
         public EditPageViewModel? EditPageViewModel { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,15 +34,16 @@ namespace WebApplication2.Pages.Admin.Pages
                     Name = p.Name,
                     Body = p.Body,
                 }).FirstOrDefaultAsync();
+                HtmlContent = EditPageViewModel.Body;
             }
 
             return Page();
-        }      
-        public async Task<IActionResult> OnPostAsync(EditPageViewModel viewModel)
+        }
+        public IActionResult OnPost(EditPageViewModel? viewModel)
         {
             try
             {
-
+                var data = EditPageViewModel.Body;
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)
