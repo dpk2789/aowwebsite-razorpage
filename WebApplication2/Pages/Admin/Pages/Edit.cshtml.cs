@@ -39,12 +39,15 @@ namespace WebApplication2.Pages.Admin.Pages
 
             return Page();
         }
-        public IActionResult OnPost(EditPageViewModel? viewModel)
+        public async Task<IActionResult> OnPost()
         {
             try
             {
-                var data = EditPageViewModel.Body;
-                return RedirectToPage("./Index");
+                var cmsPage = await _context.CmsPages.Where(x => x.Id == EditPageViewModel.Id).FirstOrDefaultAsync();
+                cmsPage.Body = EditPageViewModel.Body;
+                _context.CmsPages.Update(cmsPage);
+                await _context.SaveChangesAsync();
+                return Page();
             }
             catch (Exception ex)
             {
